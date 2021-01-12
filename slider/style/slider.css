@@ -1,0 +1,72 @@
+body {
+    color: white;
+    background-color: black;
+    text-align: center;
+}
+
+.slider__Container {
+
+}
+
+.slider__wrapper {
+    position: absolute;
+    width: 400px;
+    overflow: hidden;
+    left: 30%;
+    top: 30%;
+}
+
+.slider {
+    margin: 0 auto;
+    height: 400px;
+    width: 2000px;
+    display: flex;
+    justify-content: center;   
+    align-items: center;
+}
+
+.slider__one {
+    background-color:rgb(252, 76, 76);
+    width: 400px;
+    height: 400px;
+}
+
+
+.slider__two {
+    background-color:rgb(107, 89, 211);
+    width: 400px;
+    height: 400px;
+}
+
+
+.slider__three {
+    background-color:rgb(126, 68, 219);
+    width: 400px;
+    height: 400px;
+}
+
+
+.slider__four {
+    background-color:rgb(190, 157, 48);
+    width: 400px;
+    height: 400px;
+}
+
+
+.slider__five {
+    background-color:rgb(96, 205, 209);
+    width: 400px;
+    height: 400px;
+}
+
+.prev__btn {
+    position: absolute;
+    left: 1%;
+    top: 50%;
+}
+
+.next__btn {
+    position: absolute;
+    left: 92%;
+    top: 50%;
+}
