@@ -60,7 +60,7 @@ body {
     position: relative;
     background-color: rgb(255, 210, 152);
     width: 360px;
-    height: 180px;
+    min-height: 180px;
     border: 1px;
 }
 
@@ -71,7 +71,7 @@ body {
 }
 
 .js-toDoList {
-
+    padding-bottom: 35px;
 }
 
 .js-addBtn {
