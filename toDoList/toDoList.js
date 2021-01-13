@@ -12,6 +12,7 @@ saveToDos = (lsArray) => {
 }
 
 eraseToDos = (e) => {
+    e.stopPropagation();
     e.preventDefault();
     // 클릭된 요소의 부모-부모 요소를 찾아간다. 
     const parentNode = e.target.parentNode.parentNode;
@@ -61,6 +62,8 @@ paintToDos = (inputValue) => {
 
 submitHandler = (e) => {
     console.log("submitted");
+    // 이벤트 전파 막기
+    e.stopPropagation();
     // 화면전환 효과 없애기
     e.preventDefault();
     // input 태그 안의 텍스트 가져오기
