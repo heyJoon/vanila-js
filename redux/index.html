@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Redux Counter App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1></h1>
+
+    <button class="decrement">-</button>
+    <button class="increment">+</button>
+  </body>
+
+  <script>
+    // simplified createStore function
+    const createStore = (reducer) => {
+      let listeners = [];
+      // action: {}이므로 defailt: state가 반환되고 이는 currentState에 저장됨. 그리고 undefined에는 initialState가 저장되게 됨. 
+      let currentState = reducer(undefined, {});
+
+      return {
+        getState: () => currentState,
+        // currentState로 state를 조회할 수 있고, action 함수로 값을 변경할 수 있다. 
+        dispatch: (action) => {
+          currentState = reducer(currentState, action);
+
+          listeners.forEach((listener) => {
+            listener();
+          });
+        },
+        // subscribe로 unsubscribe 메소드를 전달해 줄 수 있다. 
+        subscribe: (newListener) => {
+          listeners.push(newListener);
+
+        // unsubscribe는 listener를 삭제하는 함수임. 
+          const unsubscribe = () => {
+            listeners = listeners.filter((l) => l !== newListener);
+          };
+
+          return unsubscribe;
+        }
+      };
+    };
+
+    // Redux architecture pieces
+    const initialState = { count: 0 };
+
+    const actions = {
+      increment: { type: 'INCREMENT' },
+      decrement: { type: 'DECREMENT' }
+    };
+
+    const countReducer = (state = initialState, action) => {
+      switch (action.type) {
+        case actions.increment.type:
+          return {
+            count: state.count + 1
+          };
+
+        case actions.decrement.type:
+          return {
+            count: state.count - 1
+          };
+
+        default:
+          return state;
+      }
+    };
+
+    // store에 reducer로 countReducer를 등록하였음.
+    const store = createStore(countReducer);
+
+    // DOM elements들을 조회하였음. 
+    const incrementButton = document.querySelector('.increment');
+    const decrementButton = document.querySelector('.decrement');
+
+    // + 버튼을 누르면, dispatch를 통해 등록된 state에서 action 함수가 실행됨.
+    incrementButton.addEventListener('click', () => {
+      store.dispatch(actions.increment);
+    });
+
+    // - 버튼을 누르면, dispatch를 통해 등록된 state에서 해당 action 함수가 실행됨.
+    decrementButton.addEventListener('click', () => {
+      store.dispatch(actions.decrement);
+    });
+
+    // Initialize UI display
+    const counterDisplay = document.querySelector('h1');
+    counterDisplay.innerHTML = parseInt(initialState.count);
+
+    // Update UI when an action fires
+    store.subscribe(() => {
+      const state = store.getState();
+    // subscribe 메소드로 state.counter를 조회한 후, 화면에 값을 나타냄.
+      counterDisplay.innerHTML = parseInt(state.count);
+    });
+  </script>
+</html>
